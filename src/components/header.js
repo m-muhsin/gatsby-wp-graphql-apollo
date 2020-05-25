@@ -14,6 +14,8 @@ const Header = ({ siteTitle }) => (
         margin: `0 auto`,
         maxWidth: 960,
         padding: `1.45rem 1.0875rem`,
+        display: `flex`,
+        justifyContent: "space-between",
       }}
     >
       <h1 style={{ margin: 0 }}>
@@ -27,6 +29,27 @@ const Header = ({ siteTitle }) => (
           {siteTitle}
         </Link>
       </h1>
+
+      <ul
+        style={{
+          listStyle: `none`,
+          textDecoration: `none`,
+          margin: 0,
+        }}
+      >
+        <li>
+          <Link
+            to="/blog"
+            style={{
+              color: `white`,
+              textDecoration: `none`,
+              borderBottom: `1px solid`,
+            }}
+          >
+            Blog
+          </Link>
+        </li>
+      </ul>
     </div>
   </header>
 )
