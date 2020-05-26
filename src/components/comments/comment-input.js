@@ -9,7 +9,7 @@ const ADD_COMMENT = gql`
     $commentOn: Int!
     $commentAuthorName: String
     $commentAuthorWebsite: String
-    $clientMutationId: String
+    $clientMutationId: String!
   ) {
     createComment(
       input: {

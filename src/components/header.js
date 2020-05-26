@@ -2,6 +2,8 @@ import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
 
+import Search from "./search"
+
 const Header = ({ siteTitle }) => (
   <header
     style={{
@@ -10,13 +12,7 @@ const Header = ({ siteTitle }) => (
     }}
   >
     <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-        display: `flex`,
-        justifyContent: "space-between",
-      }}
+      className="title-menu-container"
     >
       <h1 style={{ margin: 0 }}>
         <Link
@@ -30,24 +26,17 @@ const Header = ({ siteTitle }) => (
         </Link>
       </h1>
 
-      <ul
-        style={{
-          listStyle: `none`,
-          textDecoration: `none`,
-          margin: 0,
-        }}
-      >
-        <li>
+      <ul className="nav-items">
+        <li className="nav-item">
           <Link
             to="/blog"
-            style={{
-              color: `white`,
-              textDecoration: `none`,
-              borderBottom: `1px solid`,
-            }}
           >
             Blog
           </Link>
+        </li>
+
+        <li className="nav-item nav-item--search">
+          <Search />
         </li>
       </ul>
     </div>

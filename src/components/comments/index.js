@@ -1,6 +1,6 @@
-import React from 'react'
-import CommentsList from './comments-list'
-import CommentInput from './comment-input'
+import React from "react"
+import CommentsList from "./comments-list"
+import CommentInput from "./comment-input"
 
 const Comments = ({ id, databaseId }) => (
   <div className="entry-content">
