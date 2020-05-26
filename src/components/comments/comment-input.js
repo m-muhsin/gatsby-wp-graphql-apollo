@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
-import { useMutation } from '@apollo/react-hooks'
-import gql from 'graphql-tag'
+import React, { useState } from "react"
+import { useMutation } from "@apollo/react-hooks"
+import gql from "graphql-tag"
+import uuid from "uuid"
 
 const ADD_COMMENT = gql`
   mutation ADD_COMMENT(
@@ -8,6 +9,7 @@ const ADD_COMMENT = gql`
     $commentOn: Int!
     $commentAuthorName: String
     $commentAuthorWebsite: String
+    $clientMutationId: String
   ) {
     createComment(
       input: {
@@ -15,7 +17,7 @@ const ADD_COMMENT = gql`
         commentOn: $commentOn
         author: $commentAuthorName
         authorUrl: $commentAuthorWebsite
-        clientMutationId: "234"
+        clientMutationId: $clientMutationId
       }
     ) {
       comment {
@@ -34,7 +36,7 @@ const CommentInput = ({ id, databaseId }) => {
   const [addComment] = useMutation(ADD_COMMENT)
   // const [addComment, { data: postedData }] = useMutation(ADD_COMMENT)
 
-  const submitCommentForm = (e) => {
+  const submitCommentForm = e => {
     e.preventDefault()
     addComment({
       variables: {
@@ -43,14 +45,15 @@ const CommentInput = ({ id, databaseId }) => {
         commentAuthorName,
         commentAuthorEmail,
         commentAuthorWebsite,
+        clientMutationId: uuid(),
       },
     })
     setShowThanks(true)
 
-    commentContentInput.value = ''
-    commentAuthorNameInput.value = ''
-    commentAuthorEmailInput.value = ''
-    commentAuthorWebsiteInput.value = ''
+    commentContentInput.value = ""
+    commentAuthorNameInput.value = ""
+    commentAuthorEmailInput.value = ""
+    commentAuthorWebsiteInput.value = ""
   }
 
   const [commentContent, setCommentContent] = useState(``)
@@ -63,15 +66,15 @@ const CommentInput = ({ id, databaseId }) => {
     <div className="comment-respond">
       <h2>Leave a Reply</h2>
       <form
-        onSubmit={(e) => submitCommentForm(e)}
+        onSubmit={e => submitCommentForm(e)}
         id="commentform"
         className="section-inner thin max-percentage"
       >
         <p className="comment-form-comment">
           <label htmlFor="comment">Comment</label>
           <textarea
-            onInput={(event) => setCommentContent(event.target.value)}
-            ref={(node) => {
+            onInput={event => setCommentContent(event.target.value)}
+            ref={node => {
               commentContentInput = node
             }}
             id="comment"
@@ -86,10 +89,10 @@ const CommentInput = ({ id, databaseId }) => {
         <p className="comment-form-author">
           <label htmlFor="author">
             Name <span className="required">*</span>
-          </label>{' '}
+          </label>{" "}
           <input
-            onInput={(event) => setCommentAuthorName(event.target.value)}
-            ref={(node) => {
+            onInput={event => setCommentAuthorName(event.target.value)}
+            ref={node => {
               commentAuthorNameInput = node
             }}
             id="author"
@@ -103,10 +106,10 @@ const CommentInput = ({ id, databaseId }) => {
         <p className="comment-form-email">
           <label htmlFor="email">
             Email <span className="required">*</span>
-          </label>{' '}
+          </label>{" "}
           <input
-            onInput={(event) => setCommentAuthorEmail(event.target.value)}
-            ref={(node) => {
+            onInput={event => setCommentAuthorEmail(event.target.value)}
+            ref={node => {
               commentAuthorEmailInput = node
             }}
             id="email"
@@ -119,10 +122,10 @@ const CommentInput = ({ id, databaseId }) => {
           />
         </p>
         <p className="comment-form-url">
-          <label htmlFor="url">Website</label>{' '}
+          <label htmlFor="url">Website</label>{" "}
           <input
-            onInput={(event) => setCommentAuthorWebsite(event.target.value)}
-            ref={(node) => {
+            onInput={event => setCommentAuthorWebsite(event.target.value)}
+            ref={node => {
               commentAuthorWebsiteInput = node
             }}
             id="url"
@@ -132,9 +135,9 @@ const CommentInput = ({ id, databaseId }) => {
             maxLength="200"
           />
         </p>
-        <h4 style={{ display: showThanks ? 'block' : 'none' }}>
+        <h4 style={{ display: showThanks ? "block" : "none" }}>
           Thanks for your comment. It will appear here once it's approved by the
-          site owner.{' '}
+          site owner.{" "}
           <span role="img" aria-label="smile">
             😊
           </span>
