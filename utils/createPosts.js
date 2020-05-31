@@ -8,7 +8,7 @@ module.exports = async ({ actions, graphql }) => {
     },
   } = await graphql(`
     query ALL_POST_NODES {
-      allWpPost {
+      allWpPost(sort: {order: DESC, fields: date}) {
         nodes {
           id
           databaseId

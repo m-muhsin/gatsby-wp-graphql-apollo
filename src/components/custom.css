@@ -1,3 +1,15 @@
+.entry-header {
+  margin-bottom: 1rem;
+}
+
+.entry-title {
+  margin-bottom: 0;
+}
+
+.entry-header time {
+  color: gray;
+}
+
 a {
   color: #205d86;
 }

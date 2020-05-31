@@ -4,7 +4,7 @@ import moment from "moment"
 
 import Layout from "../../components/layout"
 import SEO from "../../components/seo"
-import Comments from '../../components/comments'
+import Comments from "../../components/comments"
 
 const SinglePost = props => {
   const {
@@ -66,7 +66,7 @@ const SinglePost = props => {
 
         <footer className="entry-footer" />
       </article>
-
+      <hr />
       <Comments id={id} databaseId={databaseId} />
     </Layout>
   )

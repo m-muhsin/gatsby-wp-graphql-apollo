@@ -28,16 +28,27 @@ const ADD_COMMENT = gql`
 `
 
 const CommentInput = ({ id, databaseId }) => {
+  // Declare variables necessary to pass on to Apollo Mutation.
   let commentContentInput,
     commentAuthorNameInput,
     commentAuthorEmailInput,
     commentAuthorWebsiteInput
 
+  // Set the initial state.
+  const [commentContent, setCommentContent] = useState(``)
+  const [commentAuthorName, setCommentAuthorName] = useState(``)
+  const [commentAuthorEmail, setCommentAuthorEmail] = useState(``)
+  const [commentAuthorWebsite, setCommentAuthorWebsite] = useState(``)
+  const [showThanks, setShowThanks] = useState(false)
+
+  // Using the Apollo mutation hook.
   const [addComment] = useMutation(ADD_COMMENT)
-  // const [addComment, { data: postedData }] = useMutation(ADD_COMMENT)
 
   const submitCommentForm = e => {
+    // Preventing the default HTML behavior.
     e.preventDefault()
+
+    // Do the Apollo mutation – add comment.
     addComment({
       variables: {
         content: commentContent,
@@ -48,20 +59,18 @@ const CommentInput = ({ id, databaseId }) => {
         clientMutationId: uuid(),
       },
     })
+
+    // Show the thank you message now!
     setShowThanks(true)
 
+    // Reset form inout values.
     commentContentInput.value = ""
     commentAuthorNameInput.value = ""
     commentAuthorEmailInput.value = ""
     commentAuthorWebsiteInput.value = ""
   }
 
-  const [commentContent, setCommentContent] = useState(``)
-  const [commentAuthorName, setCommentAuthorName] = useState(``)
-  const [commentAuthorEmail, setCommentAuthorEmail] = useState(``)
-  const [commentAuthorWebsite, setCommentAuthorWebsite] = useState(``)
-  const [showThanks, setShowThanks] = useState(false)
-
+  // Render comment form etc.
   return (
     <div className="comment-respond">
       <h2>Leave a Reply</h2>
@@ -71,15 +80,18 @@ const CommentInput = ({ id, databaseId }) => {
         className="section-inner thin max-percentage"
       >
         <p className="comment-form-comment">
-          <label htmlFor="comment">Comment</label>
+          <label htmlFor="comment">Comment: </label>
+          <span className="required">*</span>
+          <br />
           <textarea
             onInput={event => setCommentContent(event.target.value)}
             ref={node => {
               commentContentInput = node
             }}
+            style={{ width: 500, maxWidth: "100%" }}
             id="comment"
             name="comment"
-            cols="45"
+            cols="50"
             rows="8"
             maxLength="65525"
             required="required"
@@ -88,13 +100,15 @@ const CommentInput = ({ id, databaseId }) => {
         </p>
         <p className="comment-form-author">
           <label htmlFor="author">
-            Name <span className="required">*</span>
-          </label>{" "}
+            Name: <span className="required">*</span>
+          </label>
+          <br />
           <input
             onInput={event => setCommentAuthorName(event.target.value)}
             ref={node => {
               commentAuthorNameInput = node
             }}
+            style={{ width: 500, maxWidth: "100%" }}
             id="author"
             name="author"
             type="text"
@@ -105,13 +119,15 @@ const CommentInput = ({ id, databaseId }) => {
         </p>
         <p className="comment-form-email">
           <label htmlFor="email">
-            Email <span className="required">*</span>
-          </label>{" "}
+            Email: <span className="required">*</span>
+          </label>
+          <br />
           <input
             onInput={event => setCommentAuthorEmail(event.target.value)}
             ref={node => {
               commentAuthorEmailInput = node
             }}
+            style={{ width: 500, maxWidth: "100%" }}
             id="email"
             name="email"
             type="email"
@@ -122,12 +138,16 @@ const CommentInput = ({ id, databaseId }) => {
           />
         </p>
         <p className="comment-form-url">
-          <label htmlFor="url">Website</label>{" "}
+          <label htmlFor="url">
+            Website: <span className="required">*</span>
+          </label>
+          <br />
           <input
             onInput={event => setCommentAuthorWebsite(event.target.value)}
             ref={node => {
               commentAuthorWebsiteInput = node
             }}
+            style={{ width: 500, maxWidth: "100%" }}
             id="url"
             name="url"
             type="url"

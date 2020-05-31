@@ -14,12 +14,15 @@ const BlogArchive = ({ pageContext }) => (
       {pageContext.nodes &&
         pageContext.nodes.map(post => {
           return (
-            <Link to={`blog/${post.slug}`}>
-              <h2
-                key={post.id}
-                dangerouslySetInnerHTML={{ __html: post.title }}
-              />
-            </Link>
+            <article>
+              <Link to={`blog/${post.slug}`}>
+                <h2
+                  key={post.id}
+                  dangerouslySetInnerHTML={{ __html: post.title }}
+                />
+              </Link>
+              <p dangerouslySetInnerHTML={{ __html: post.excerpt }} />
+            </article>
           )
         })}
     </div>
